@@ -36,7 +36,7 @@ export default function PostDetail() {
   const handleSave = async () => { if (requireLogin()) return; await api.put(`/posts/${id}/save`); };
   const handleShare = async () => {
     await api.post(`/posts/${id}/share`);
-    if (navigator.share) navigator.share({ title: post.title, url: window.location.href }).catch(() => {});
+    if (navigator.share) navigator.share({ title: post.title, url: window.location.href }).catch(() => { });
     else navigator.clipboard.writeText(window.location.href);
     load();
   };
@@ -46,6 +46,11 @@ export default function PostDetail() {
     if (!commentText.trim()) return;
     await api.post(`/posts/${id}/comments`, { text: commentText });
     setCommentText('');
+    load();
+  };
+  const handleDeleteComment = async (commentId) => {
+    if (!window.confirm('Delete this comment?')) return;
+    await api.delete(`/posts/${id}/comments/${commentId}`);
     load();
   };
   const handleReport = async (e) => {
@@ -134,12 +139,23 @@ export default function PostDetail() {
         </form>
 
         <div className="space-y-3">
-          {post.comments?.map((c) => (
-            <motion.div key={c._id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-sm border-b border-slate-100 pb-2.5">
-              <span className="font-medium text-slate-800">{c.userId?.name || 'User'}</span>
-              <span className="text-slate-600 ml-2">{c.text}</span>
-            </motion.div>
-          ))}
+          {post.comments?.map((c) => {
+            const canDelete = user && (String(c.userId?._id) === String(user._id) || user.role === 'admin');
+            return (
+              <motion.div key={c._id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                className="text-sm border-b border-slate-100 pb-2.5 flex items-start justify-between gap-2">
+                <div>
+                  <span className="font-medium text-slate-800">{c.userId?.name || 'User'}</span>
+                  <span className="text-slate-600 ml-2">{c.text}</span>
+                </div>
+                {canDelete && (
+                  <button onClick={() => handleDeleteComment(c._id)} className="text-slate-300 hover:text-red-500 transition shrink-0">
+                    <Trash2 size={13} />
+                  </button>
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </motion.div>
