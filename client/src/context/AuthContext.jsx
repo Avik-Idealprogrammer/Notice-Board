@@ -38,6 +38,14 @@ export function AuthProvider({ children }) {
     return res.data.user;
   };
 
+  const loginWithFirebase = async (idToken) => {
+    const res = await api.post('/auth/firebase', { idToken });
+    localStorage.setItem('token', res.data.token);
+    localStorage.setItem('user', JSON.stringify(res.data.user));
+    setUser(res.data.user);
+    return res.data.user;
+  };
+
   const register = async (payload) => {
     const res = await api.post('/auth/register', payload);
     localStorage.setItem('token', res.data.token);
@@ -53,7 +61,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, setUser, login, loginWithFirebase, register, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

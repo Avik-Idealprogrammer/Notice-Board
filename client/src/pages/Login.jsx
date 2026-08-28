@@ -3,9 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Loader2, MapPin } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { auth, googleProvider } from '../firebase';
+import { signInWithPopup } from 'firebase/auth';
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, loginWithFirebase } = useAuth();
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -22,6 +24,18 @@ export default function Login() {
       setError(err.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError('');
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const idToken = await result.user.getIdToken();
+      await loginWithFirebase(idToken);
+      navigate('/');
+    } catch (err) {
+      setError('Google sign-in failed');
     }
   };
 
@@ -107,6 +121,22 @@ export default function Login() {
               {loading ? 'Logging in...' : 'Log in'}
             </motion.button>
           </form>
+
+          <div className="flex items-center gap-3 my-5">
+            <div className="flex-1 h-px bg-slate-200" />
+            <span className="text-xs text-slate-400">OR</span>
+            <div className="flex-1 h-px bg-slate-200" />
+          </div>
+
+          <motion.button
+            whileTap={{ scale: 0.98 }}
+            type="button"
+            onClick={handleGoogleLogin}
+            className="w-full border border-slate-200 rounded-lg py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition flex items-center justify-center gap-2"
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" className="w-4 h-4" />
+            Continue with Google
+          </motion.button>
 
           <p className="text-sm text-slate-500 mt-6 text-center">
             No account?{' '}
