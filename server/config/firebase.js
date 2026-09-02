@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const { getAuth } = require('firebase-admin/auth');
 
 let serviceAccount;
 
@@ -16,4 +17,6 @@ if (admin.getApps().length === 0) {
   });
 }
 
-module.exports = admin;
+const auth = getAuth();
+
+module.exports = { admin, auth };

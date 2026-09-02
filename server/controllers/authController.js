@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const admin = require('../config/firebase');
+const { auth: firebaseAuthInstance } = require('../config/firebase');
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
@@ -11,7 +11,7 @@ const firebaseAuth = async (req, res, next) => {
     const { idToken } = req.body;
     if (!idToken) return res.status(400).json({ message: 'idToken is required' });
 
-    const decoded = await admin.auth().verifyIdToken(idToken);
+    const decoded = await firebaseAuthInstance.verifyIdToken(idToken);
     const { uid, email, name, phone_number } = decoded;
 
     // Match an existing user by whichever identifier this login provided
