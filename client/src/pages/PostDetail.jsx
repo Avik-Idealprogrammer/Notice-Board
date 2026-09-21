@@ -12,6 +12,7 @@ export default function PostDetail() {
 
   const [post, setPost] = useState(null);
   const [commentText, setCommentText] = useState('');
+  const [isLiking , setIsLiking] = useState(false);
   const [reportReason, setReportReason] = useState('');
   const [showReport, setShowReport] = useState(false);
   const [error, setError] = useState('');
@@ -32,7 +33,19 @@ export default function PostDetail() {
     return false;
   };
 
-  const handleLike = async () => { if (requireLogin()) return; await api.put(`/posts/${id}/like`); load(); };
+  const handleLike = async () => {
+     if (requireLogin()) return;
+     if(isLiking) return;
+     try{
+      setIsLiking(true)
+     await api.put(`/posts/${id}/like`);
+     await load() ;
+     }catch(error){
+console.error(error)
+     }finally{
+      setIsLiking(false)
+     }
+   };
   const handleSave = async () => { if (requireLogin()) return; await api.put(`/posts/${id}/save`); };
   const handleShare = async () => {
     await api.post(`/posts/${id}/share`);
@@ -94,7 +107,7 @@ export default function PostDetail() {
       <p className="text-slate-700 mt-5 whitespace-pre-wrap leading-relaxed">{post.description}</p>
 
       <div className="flex items-center gap-2 mt-6 text-sm flex-wrap">
-        <motion.button whileTap={{ scale: 0.92 }} onClick={handleLike}
+        <motion.button whileTap={{ scale: 0.92 }} onClick={handleLike} disabled={isLiking}
           className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg border transition ${isLiked ? 'bg-red-50 border-red-200 text-red-600' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
           <Heart size={14} className={isLiked ? 'fill-red-500 text-red-500' : ''} /> {post.likes?.length || 0}
         </motion.button>
