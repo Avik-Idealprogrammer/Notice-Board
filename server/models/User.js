@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
     },
     googleId: { type: String, default: null },
-    phone: { type: String, default: null, unique: true, sparse: true },
+    phone: { type: String, unique: true, sparse: true },
     role: { type: String, enum: ['user', 'business', 'admin'], default: 'user' },
     location: {
       city: { type: String, default: '' },
