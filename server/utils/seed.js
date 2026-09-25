@@ -13,9 +13,9 @@ const run = async () => {
 
   console.log('Creating users...');
   const admin = await User.create({
-    name: 'Admin',
-    email: 'admin@noticeboard.local',
-    password: 'admin1234',
+    name: process.env.ADMIN_NAME,
+    email: process.env.ADMIN_EMAIL,
+    password: process.env.ADMIN_PASS,
     role: 'admin',
     location: { city: 'Gorakhpur', area: 'Civil Lines' },
   });

@@ -34,11 +34,6 @@ You need a free [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) cluster
 (get `MONGO_URI` from there) and a free [Cloudinary](https://cloudinary.com/)
 account (for `CLOUDINARY_*` keys, used for ad/notice images).
 
-After seeding, log in as:
-- **Admin:** `admin@noticeboard.local` / `admin1234`
-- **Resident:** `ritika@example.com` / `password123`
-- **Business owner:** `anil@primetailors.local` / `password123`
-
 ---
 
 ## 2. What's Implemented (maps to the PRD)
@@ -111,21 +106,3 @@ notice-board/
         │           BusinessProfile, AdminPanel, SavedPosts)
         └── App.jsx
 ```
-## 6. Bug Bounty Round 
-
-Explore the app, find bugs, fix as many as you can, and (optionally) pick up
-a feature from the Issues tab.
-
-**How to participate:**
-1. Fork this repo (or clone if you have write access).
-2. Push your changes to a branch based on `main2`.
-3. Open a PR into `main2` — describe what you fixed/built.
-
-**Judging criteria:**
-- Quality of bug fixes
-- Code scalability
-- Overall code quality
-
-Check the [Issues tab](https://github.com/Avik-Idealprogrammer/Notice-Board/issues)
-for the feature list and difficulty labels (`easy` / `medium` / `hard`).
----
