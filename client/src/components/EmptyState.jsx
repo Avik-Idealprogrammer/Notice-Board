@@ -10,12 +10,12 @@ export default function EmptyState({ icon: Icon, title, subtitle }) {
     >
       {Icon && (
         // 🎨 COLOR: empty-state icon circle background/color
-        <div className="w-14 h-14 rounded-full bg-brand-50 text-brand-500 flex items-center justify-center mb-4">
+        <div className="w-14 h-14 rounded-full bg-brand-50 dark:bg-brand-950/60 text-brand-500 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 flex items-center justify-center mb-4">
           <Icon size={26} />
         </div>
       )}
-      <p className="font-medium text-slate-700">{title}</p>
-      {subtitle && <p className="text-sm text-slate-400 mt-1 max-w-xs">{subtitle}</p>}
+      <p className="font-medium text-slate-700 dark:text-slate-200">{title}</p>
+      {subtitle && <p className="text-sm text-slate-400 dark:text-slate-400 mt-1 max-w-xs">{subtitle}</p>}
     </motion.div>
   );
 }
