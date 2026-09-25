@@ -15,7 +15,7 @@ export default function SavedPosts() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h1 className="text-xl font-bold text-slate-900 mb-6">Saved posts</h1>
+      <h1 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Saved posts</h1>
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {Array.from({ length: 3 }).map((_, i) => <PostCardSkeleton key={i} />)}

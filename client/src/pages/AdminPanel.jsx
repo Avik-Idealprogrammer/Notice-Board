@@ -83,14 +83,14 @@ export default function AdminPanel() {
             {reports.length === 0 ? (
               <EmptyState icon={Flag} title="No pending reports" subtitle="Everything's clean for now." />
             ) : reports.map((r) => (
-              <div key={r._id} className="border border-slate-200 rounded-lg p-4 text-sm bg-white shadow-card">
+              <div key={r._id} className="border border-slate-200 dark:border-white/10 rounded-lg p-4 text-sm bg-white dark:bg-[#1c1410] shadow-card">
                 <p className="font-medium text-slate-800 dark:text-slate-100">{r.postId?.title || 'Post removed'}</p>
                 <p className="text-slate-500 dark:text-slate-400 mt-0.5">Reported by {r.reportedBy?.name}: "{r.reason}"</p>
                 <div className="flex gap-2 mt-3">
                   <button onClick={() => resolveReport(r._id, 'remove')} className="px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-medium hover:bg-red-700 transition">
                     Remove post
                   </button>
-                  <button onClick={() => resolveReport(r._id, 'restore')} className="px-3 py-1.5 rounded-lg bg-slate-100 text-xs font-medium hover:bg-slate-200 transition">
+                  <button onClick={() => resolveReport(r._id, 'restore')} className="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-200 text-xs font-medium hover:bg-slate-200 dark:hover:bg-white/20 transition">
                     Dismiss / restore
                   </button>
                 </div>

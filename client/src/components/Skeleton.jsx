@@ -6,7 +6,7 @@ export default function Skeleton({ className = '' }) {
 
 export function PostCardSkeleton() {
   return (
-    <div className="border rounded-xl2 overflow-hidden bg-white shadow-card">
+    <div className="border border-slate-200 dark:border-white/10 rounded-xl2 overflow-hidden bg-white dark:bg-[#18110c] shadow-card">
       <Skeleton className="h-40 w-full rounded-none" />
       <div className="p-4 space-y-2">
         <Skeleton className="h-3 w-16" />

@@ -80,42 +80,42 @@ export default function PostDetail() {
       )}
 
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800 text-white uppercase tracking-wide">{post.type}</span>
-        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 uppercase tracking-wide">{post.category}</span>
+        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800 dark:bg-white/15 text-white uppercase tracking-wide">{post.type}</span>
+        <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 dark:border dark:border-blue-500/20 uppercase tracking-wide">{post.category}</span>
       </div>
 
-      <h1 className="text-2xl font-bold text-slate-900">{post.title}</h1>
-      <div className="flex flex-wrap items-center gap-3 text-sm text-slate-400 mt-2">
+      <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{post.title}</h1>
+      <div className="flex flex-wrap items-center gap-3 text-sm text-slate-400 dark:text-slate-500 mt-2">
         <span className="flex items-center gap-1"><MapPin size={13} /> {post.location?.area}, {post.location?.city}</span>
         {post.businessId && <span>· {post.businessId.businessName}</span>}
         {post.eventDate && <span className="flex items-center gap-1"><Calendar size={13} /> {new Date(post.eventDate).toLocaleDateString()}</span>}
       </div>
 
-      <p className="text-slate-700 mt-5 whitespace-pre-wrap leading-relaxed">{post.description}</p>
+      <p className="text-slate-700 dark:text-slate-300 mt-5 whitespace-pre-wrap leading-relaxed">{post.description}</p>
 
       <div className="flex items-center gap-2 mt-6 text-sm flex-wrap">
         <motion.button whileTap={{ scale: 0.92 }} onClick={handleLike}
-          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg border transition ${isLiked ? 'bg-red-50 border-red-200 text-red-600' : 'border-slate-200 text-slate-600 hover:bg-slate-50'}`}>
+          className={`flex items-center gap-1.5 px-3.5 py-2 rounded-lg border transition ${isLiked ? 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400' : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5'}`}>
           <Heart size={14} className={isLiked ? 'fill-red-500 text-red-500' : ''} /> {post.likes?.length || 0}
         </motion.button>
-        <button onClick={handleShare} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+        <button onClick={handleShare} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition">
           <Share2 size={14} /> {post.shareCount || 0}
         </button>
-        <button onClick={handleSave} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+        <button onClick={handleSave} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition">
           <Bookmark size={14} /> Save
         </button>
 
         {isOwner ? (
           <>
-            <Link to={`/edit/${post._id}`} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+            <Link to={`/edit/${post._id}`} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition">
               <Pencil size={14} /> Edit
             </Link>
-            <button onClick={handleDelete} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-red-200 text-red-600 hover:bg-red-50 transition">
+            <button onClick={handleDelete} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-red-200 dark:border-red-500/30 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 transition">
               <Trash2 size={14} /> Delete
             </button>
           </>
         ) : (
-          <button onClick={() => setShowReport(!showReport)} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 text-slate-400 hover:bg-slate-50 transition ml-auto">
+          <button onClick={() => setShowReport(!showReport)} className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-slate-200 dark:border-white/10 text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-white/5 transition ml-auto">
             <Flag size={14} /> Report
           </button>
         )}
@@ -125,16 +125,16 @@ export default function PostDetail() {
         {showReport && (
           <motion.form initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}
             onSubmit={handleReport} className="mt-3 flex gap-2 overflow-hidden">
-            <input required placeholder="Reason for reporting..." className="flex-1 border border-slate-200 rounded-lg px-3.5 py-2 text-sm" value={reportReason} onChange={(e) => setReportReason(e.target.value)} />
-            <button className="px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium">Submit</button>
+            <input required placeholder="Reason for reporting..." className="flex-1 border border-slate-200 dark:border-white/10 bg-white dark:bg-[#18110c] text-slate-900 dark:text-white rounded-lg px-3.5 py-2 text-sm outline-none" value={reportReason} onChange={(e) => setReportReason(e.target.value)} />
+            <button className="px-4 py-2 rounded-lg bg-red-600 text-white text-sm font-medium hover:bg-red-700 transition">Submit</button>
           </motion.form>
         )}
       </AnimatePresence>
 
       <div className="mt-10">
-        <h2 className="font-semibold text-slate-900 mb-3">Comments ({post.comments?.length || 0})</h2>
+        <h2 className="font-semibold text-slate-900 dark:text-white mb-3">Comments ({post.comments?.length || 0})</h2>
         <form onSubmit={handleComment} className="flex gap-2 mb-4">
-          <input placeholder={user ? 'Write a comment...' : 'Log in to comment'} className="flex-1 border border-slate-200 rounded-lg px-3.5 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition" value={commentText} onChange={(e) => setCommentText(e.target.value)} />
+          <input placeholder={user ? 'Write a comment...' : 'Log in to comment'} className="flex-1 border border-slate-200 dark:border-white/10 bg-white dark:bg-[#18110c] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-lg px-3.5 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition" value={commentText} onChange={(e) => setCommentText(e.target.value)} />
           <button className="px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 transition">Post</button>
         </form>
 
@@ -143,13 +143,13 @@ export default function PostDetail() {
             const canDelete = user && (String(c.userId?._id) === String(user._id) || user.role === 'admin');
             return (
               <motion.div key={c._id} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                className="text-sm border-b border-slate-100 pb-2.5 flex items-start justify-between gap-2">
+                className="text-sm border-b border-slate-100 dark:border-white/10 pb-2.5 flex items-start justify-between gap-2">
                 <div>
-                  <span className="font-medium text-slate-800">{c.userId?.name || 'User'}</span>
-                  <span className="text-slate-600 ml-2">{c.text}</span>
+                  <span className="font-medium text-slate-800 dark:text-slate-200">{c.userId?.name || 'User'}</span>
+                  <span className="text-slate-600 dark:text-slate-400 ml-2">{c.text}</span>
                 </div>
                 {canDelete && (
-                  <button onClick={() => handleDeleteComment(c._id)} className="text-slate-300 hover:text-red-500 transition shrink-0">
+                  <button onClick={() => handleDeleteComment(c._id)} className="text-slate-300 dark:text-slate-600 hover:text-red-500 dark:hover:text-red-400 transition shrink-0">
                     <Trash2 size={13} />
                   </button>
                 )}
