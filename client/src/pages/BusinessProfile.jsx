@@ -48,13 +48,14 @@ export default function BusinessProfile() {
     }
   };
 
-  const inputClass = 'w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition';
+  const inputClass =
+    'w-full border border-slate-200 dark:border-white/10 rounded-lg px-3.5 py-2.5 text-sm bg-white dark:bg-[#120d0a] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition';
 
   if (editing) {
     return (
       <div className="max-w-lg mx-auto px-4 py-8">
-        <h1 className="text-xl font-bold text-slate-900 mb-6">{business ? 'Edit business profile' : 'Create your business profile'}</h1>
-        <motion.form initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} onSubmit={handleSubmit} className="space-y-4 bg-white border border-slate-200 rounded-xl2 shadow-card p-6">
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white mb-6">{business ? 'Edit business profile' : 'Create your business profile'}</h1>
+        <motion.form initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} onSubmit={handleSubmit} className="space-y-4 bg-white dark:bg-[#18110c] border border-slate-200 dark:border-white/10 rounded-xl2 shadow-card p-6">
           <input placeholder="Business name" required className={inputClass} value={form.businessName} onChange={(e) => setForm({ ...form, businessName: e.target.value })} />
           <select className={inputClass} value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
             {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -68,10 +69,10 @@ export default function BusinessProfile() {
             <input placeholder="Phone" className={inputClass} value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
             <input placeholder="Contact email" className={inputClass} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
           </div>
-          {error && <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>}
+          {error && <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/40 rounded-lg px-3 py-2">{error}</p>}
           <div className="flex gap-2">
             <button className="flex-1 bg-brand-600 text-white rounded-lg py-2.5 text-sm font-semibold hover:bg-brand-700 transition shadow-card">Save</button>
-            {business && <button type="button" onClick={() => setEditing(false)} className="px-4 rounded-lg border border-slate-200 text-sm">Cancel</button>}
+            {business && <button type="button" onClick={() => setEditing(false)} className="px-4 rounded-lg border border-slate-200 dark:border-white/10 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 transition">Cancel</button>}
           </div>
         </motion.form>
       </div>
@@ -82,33 +83,33 @@ export default function BusinessProfile() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-white border border-slate-200 rounded-xl2 shadow-card p-6">
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="bg-white dark:bg-[#18110c] border border-slate-200 dark:border-white/10 rounded-xl2 shadow-card p-6">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-3">
             {/* COLOR: business avatar placeholder circle */}
-            <div className="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 border border-brand-100/50 dark:border-brand-500/20 flex items-center justify-center">
               <Store size={22} />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-900">{business.businessName}</h1>
-              <p className="text-xs text-slate-400 uppercase tracking-wide mt-0.5">{business.category}</p>
+              <h1 className="text-xl font-bold text-slate-900 dark:text-white">{business.businessName}</h1>
+              <p className="text-xs text-slate-400 dark:text-slate-400 uppercase tracking-wide mt-0.5">{business.category}</p>
             </div>
           </div>
-          <button onClick={() => setEditing(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 text-sm text-slate-600 hover:bg-slate-50">
+          <button onClick={() => setEditing(true)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition">
             <Pencil size={13} /> Edit
           </button>
         </div>
 
-        <p className="text-slate-600 mt-4 text-sm leading-relaxed">{business.description}</p>
+        <p className="text-slate-600 dark:text-slate-300 mt-4 text-sm leading-relaxed">{business.description}</p>
 
-        <div className="mt-4 flex flex-wrap gap-4 text-sm text-slate-500">
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-slate-500 dark:text-slate-400">
           <span className="flex items-center gap-1.5"><MapPin size={14} /> {business.location.area}, {business.location.city}</span>
           {business.contact.phone && <span className="flex items-center gap-1.5"><Phone size={14} /> {business.contact.phone}</span>}
           {business.contact.email && <span className="flex items-center gap-1.5"><Mail size={14} /> {business.contact.email}</span>}
         </div>
       </motion.div>
 
-      <h2 className="font-semibold text-slate-900 mt-8 mb-3">Your ads ({posts.length})</h2>
+      <h2 className="font-semibold text-slate-900 dark:text-white mt-8 mb-3">Your ads ({posts.length})</h2>
       {posts.length === 0 ? (
         <EmptyState icon={Store} title="No ads yet" subtitle="Post your first ad to reach residents nearby." />
       ) : (
@@ -120,7 +121,7 @@ export default function BusinessProfile() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.04 }}
               href={`/posts/${p._id}`}
-              className="block border border-slate-200 rounded-lg px-4 py-3 text-sm bg-white hover:shadow-card transition-shadow"
+              className="block border border-slate-200 dark:border-white/10 rounded-lg px-4 py-3 text-sm bg-white dark:bg-[#18110c] text-slate-800 dark:text-slate-200 hover:shadow-card hover:border-slate-300 dark:hover:border-white/20 transition-all"
             >
               {p.title}
             </motion.a>

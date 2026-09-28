@@ -27,7 +27,7 @@ export default function App() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#f3f4f5] dark:bg-[#0e0a07] text-slate-900 dark:text-slate-100 transition-colors duration-200">
       <Navbar />
 
       {/* AnimatePresence + location.pathname as key = smooth cross-fade between pages */}

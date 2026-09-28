@@ -16,7 +16,7 @@ export default function EditPost() {
 
   return (
     <div className="max-w-xl mx-auto px-4 py-8">
-      <h1 className="text-xl font-bold text-slate-900 mb-6">Edit post</h1>
+      <h1 className="text-xl font-bold text-slate-900 dark:text-white mb-6">Edit post</h1>
       <PostForm fixedType={type} />
     </div>
   );

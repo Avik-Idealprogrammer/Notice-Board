@@ -29,6 +29,10 @@ export default function Login() {
 
   const handleGoogleLogin = async () => {
     setError('');
+    if (!auth || !googleProvider) {
+      setError('Google sign-in is not configured (missing Firebase credentials in .env).');
+      return;
+    }
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const idToken = await result.user.getIdToken();
@@ -65,36 +69,36 @@ export default function Login() {
       </div>
 
       {/* Right form panel */}
-      <div className="flex-1 flex items-center justify-center px-6 py-16">
+      <div className="flex-1 flex items-center justify-center px-6 py-16 bg-white dark:bg-[#0e0a07] transition-colors">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
           className="w-full max-w-sm"
         >
-          <h1 className="text-2xl font-bold text-slate-900">Welcome back</h1>
-          <p className="text-slate-400 text-sm mt-1 mb-8">Log in to your NoticeBoard account</p>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Welcome back</h1>
+          <p className="text-slate-400 dark:text-slate-400 text-sm mt-1 mb-8">Log in to your NoticeBoard account</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="text-xs font-medium text-slate-500 mb-1 block">Email</label>
+              <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Email</label>
               <input
                 type="email"
                 required
                 placeholder="you@example.com"
                 // COLOR/SIZE: shared input style - focus ring color is brand-500
-                className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
+                className="w-full border border-slate-200 dark:border-white/10 bg-white dark:bg-[#18110c] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-slate-500 mb-1 block">Password</label>
+              <label className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1 block">Password</label>
               <input
                 type="password"
                 required
                 placeholder="••••••••"
-                className="w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
+                className="w-full border border-slate-200 dark:border-white/10 bg-white dark:bg-[#18110c] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
                 value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
@@ -104,7 +108,7 @@ export default function Login() {
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2"
+                className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/40 rounded-lg px-3 py-2"
               >
                 {error}
               </motion.p>
@@ -123,24 +127,24 @@ export default function Login() {
           </form>
 
           <div className="flex items-center gap-3 my-5">
-            <div className="flex-1 h-px bg-slate-200" />
+            <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
             <span className="text-xs text-slate-400">OR</span>
-            <div className="flex-1 h-px bg-slate-200" />
+            <div className="flex-1 h-px bg-slate-200 dark:bg-white/10" />
           </div>
 
           <motion.button
             whileTap={{ scale: 0.98 }}
             type="button"
             onClick={handleGoogleLogin}
-            className="w-full border border-slate-200 rounded-lg py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 transition flex items-center justify-center gap-2"
+            className="w-full border border-slate-200 dark:border-white/10 bg-white dark:bg-[#18110c] rounded-lg py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/5 transition flex items-center justify-center gap-2"
           >
             <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="" className="w-4 h-4" />
             Continue with Google
           </motion.button>
 
-          <p className="text-sm text-slate-500 mt-6 text-center">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mt-6 text-center">
             No account?{' '}
-            <Link to="/register" className="text-brand-600 font-semibold hover:underline">
+            <Link to="/register" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">
               Sign up
             </Link>
           </p>

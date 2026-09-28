@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, LayoutGrid, Megaphone, ClipboardList, ShieldCheck, Bookmark, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import ThemeToggle from './ThemeToggle';
 
 // Central nav-link definitions. Add/remove links here and both desktop + mobile menus update.
 const NAV_LINKS = [
@@ -34,9 +35,9 @@ export default function Navbar() {
 
   return (
     // COLOR: navbar background + border
-    <nav className="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-30">
+    <nav className="border-b border-slate-200 dark:border-white/10 bg-white/80 dark:bg-[#120d0a]/85 backdrop-blur-md sticky top-0 z-30 transition-colors">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <Link to="/" className="font-extrabold text-xl tracking-tight text-slate-900">
+        <Link to="/" className="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white">
           Notice<span className="text-brand-600">Board</span>
         </Link>
 
@@ -48,7 +49,7 @@ export default function Navbar() {
                 key={link.to}
                 to={link.to}
                 className={`relative px-3 py-2 rounded-lg transition-colors ${
-                  active ? 'text-brand-700' : 'text-slate-500 hover:text-slate-800'
+                  active ? 'text-brand-700 dark:text-brand-400' : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-100'
                 }`}
               >
                 {link.label}
@@ -56,7 +57,7 @@ export default function Navbar() {
                   // COLOR: active-tab pill background
                   <motion.span
                     layoutId="navPill"
-                    className="absolute inset-0 -z-10 bg-brand-50 rounded-lg"
+                    className="absolute inset-0 -z-10 bg-brand-50 dark:bg-brand-950/60 border border-brand-200/50 dark:border-brand-500/20 rounded-lg"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -66,16 +67,18 @@ export default function Navbar() {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
+
           {user ? (
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/10 hover:text-slate-800 dark:hover:text-slate-100 transition-colors"
             >
               <LogOut size={15} /> Logout
             </button>
           ) : (
             <>
-              <Link to="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+              <Link to="/login" className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
                 Log in
               </Link>
               {/* COLOR: primary CTA button - this exact class combo is reused across the app */}
@@ -89,9 +92,16 @@ export default function Navbar() {
           )}
         </div>
 
-        <button className="md:hidden text-slate-700" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="flex md:hidden items-center gap-1">
+          <ThemeToggle />
+          <button
+            className="p-2 rounded-lg text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -100,7 +110,7 @@ export default function Navbar() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden overflow-hidden border-t border-slate-100 bg-white"
+            className="md:hidden overflow-hidden border-t border-slate-100 dark:border-white/10 bg-white dark:bg-[#140e0a]"
           >
             <div className="px-4 py-3 flex flex-col gap-1">
               {visibleLinks.map((link) => (
@@ -108,28 +118,36 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-50"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
                 >
                   <link.icon size={16} /> {link.label}
                 </Link>
               ))}
-              <div className="border-t border-slate-100 my-1" />
+              <div className="border-t border-slate-100 dark:border-white/10 my-1" />
               {user ? (
                 <button
                   onClick={() => {
                     setMobileOpen(false);
                     handleLogout();
                   }}
-                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 text-left"
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 text-left transition-colors"
                 >
                   <LogOut size={16} /> Logout
                 </button>
               ) : (
                 <div className="flex gap-2 px-3 py-2">
-                  <Link to="/login" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2 rounded-lg border text-sm">
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 text-center py-2 rounded-lg border border-slate-200 dark:border-white/15 text-slate-700 dark:text-slate-200 text-sm hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
+                  >
                     Log in
                   </Link>
-                  <Link to="/register" onClick={() => setMobileOpen(false)} className="flex-1 text-center py-2 rounded-lg bg-brand-600 text-white text-sm">
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 text-center py-2 rounded-lg bg-brand-600 text-white text-sm hover:bg-brand-700 transition-colors shadow-card"
+                  >
                     Sign up
                   </Link>
                 </div>

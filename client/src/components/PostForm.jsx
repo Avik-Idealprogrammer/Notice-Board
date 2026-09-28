@@ -86,14 +86,14 @@ export default function PostForm({ fixedType }) {
   };
 
   const inputClass =
-    'w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition';
+    'w-full border border-slate-200 dark:border-white/10 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 bg-white dark:bg-[#120d0a] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 transition';
 
   return (
     <motion.form
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       onSubmit={handleSubmit}
-      className="space-y-4 bg-white border border-slate-200 rounded-xl2 shadow-card p-6"
+      className="space-y-4 bg-white dark:bg-[#18110c] border border-slate-200 dark:border-white/10 rounded-xl2 shadow-card p-6"
     >
       <input
         placeholder="Title"
@@ -129,14 +129,14 @@ export default function PostForm({ fixedType }) {
 
       {type === 'notice' && (
         <div>
-          <label className="text-xs text-slate-500 block mb-1">Event date (optional)</label>
+          <label className="text-xs text-slate-500 dark:text-slate-400 block mb-1">Event date (optional)</label>
           <input type="date" className={inputClass} value={form.eventDate} onChange={(e) => setForm({ ...form, eventDate: e.target.value })} />
         </div>
       )}
 
       {!isEditing && (
         <div>
-          <label className="text-xs text-slate-500 block mb-2">Photos (up to 5)</label>
+          <label className="text-xs text-slate-500 dark:text-slate-400 block mb-2">Photos (up to 5)</label>
           <div className="flex gap-2 flex-wrap">
             {previews.map((src, i) => (
               <div key={i} className="relative w-16 h-16">
@@ -147,7 +147,7 @@ export default function PostForm({ fixedType }) {
               </div>
             ))}
             {previews.length < 5 && (
-              <label className="w-16 h-16 border-2 border-dashed border-slate-300 rounded-lg flex items-center justify-center cursor-pointer text-slate-400 hover:border-brand-400 hover:text-brand-500 transition">
+              <label className="w-16 h-16 border-2 border-dashed border-slate-300 dark:border-white/20 rounded-lg flex items-center justify-center cursor-pointer text-slate-400 dark:text-slate-500 hover:border-brand-400 dark:hover:border-brand-500 hover:text-brand-500 transition">
                 <ImagePlus size={18} />
                 <input type="file" multiple accept="image/*" onChange={handleImagePick} className="hidden" />
               </label>
@@ -156,7 +156,7 @@ export default function PostForm({ fixedType }) {
         </div>
       )}
 
-      {error && <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>}
+      {error && <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/40 rounded-lg px-3 py-2">{error}</p>}
 
       <motion.button
         whileTap={{ scale: 0.98 }}

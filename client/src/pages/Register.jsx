@@ -29,7 +29,7 @@ export default function Register() {
 
   // shared input classes - kept as a variable so every field stays visually consistent
   const inputClass =
-    'w-full border border-slate-200 rounded-lg px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition';
+    'w-full border border-slate-200 dark:border-white/10 rounded-lg px-3.5 py-2.5 text-sm bg-white dark:bg-[#120d0a] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition';
 
   return (
     <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-6 py-12">
@@ -37,10 +37,10 @@ export default function Register() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-md bg-white border border-slate-200 rounded-xl2 shadow-card p-8"
+        className="w-full max-w-md bg-white dark:bg-[#18110c] border border-slate-200 dark:border-white/10 rounded-xl2 shadow-card p-8"
       >
-        <h1 className="text-2xl font-bold text-slate-900">Create an account</h1>
-        <p className="text-slate-400 text-sm mt-1 mb-6">Join your local NoticeBoard community</p>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Create an account</h1>
+        <p className="text-slate-400 dark:text-slate-400 text-sm mt-1 mb-6">Join your local NoticeBoard community</p>
 
         {/* Role selector - two big tappable cards instead of plain radio buttons */}
         <div className="grid grid-cols-2 gap-3 mb-6">
@@ -55,13 +55,13 @@ export default function Register() {
               // COLOR: selected-state border/background for role cards
               className={`text-left p-3 rounded-xl border-2 transition ${
                 form.role === opt.key
-                  ? 'border-brand-500 bg-brand-50'
-                  : 'border-slate-200 hover:border-slate-300'
+                  ? 'border-brand-500 bg-brand-50 dark:bg-brand-950/50'
+                  : 'border-slate-200 dark:border-white/10 bg-white dark:bg-[#120d0a] hover:border-slate-300 dark:hover:border-white/20'
               }`}
             >
-              <opt.icon size={18} className={form.role === opt.key ? 'text-brand-600' : 'text-slate-400'} />
-              <p className="font-medium text-sm text-slate-800 mt-1.5">{opt.label}</p>
-              <p className="text-xs text-slate-400">{opt.desc}</p>
+              <opt.icon size={18} className={form.role === opt.key ? 'text-brand-600 dark:text-brand-400' : 'text-slate-400'} />
+              <p className="font-medium text-sm text-slate-800 dark:text-slate-200 mt-1.5">{opt.label}</p>
+              <p className="text-xs text-slate-400 dark:text-slate-400">{opt.desc}</p>
             </button>
           ))}
         </div>
@@ -107,7 +107,7 @@ export default function Register() {
           </div>
 
           {error && (
-            <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>
+            <p className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/40 border border-red-100 dark:border-red-900/40 rounded-lg px-3 py-2">{error}</p>
           )}
 
           <motion.button
@@ -121,9 +121,9 @@ export default function Register() {
           </motion.button>
         </form>
 
-        <p className="text-sm text-slate-500 mt-5 text-center">
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-5 text-center">
           Already have an account?{' '}
-          <Link to="/login" className="text-brand-600 font-semibold hover:underline">
+          <Link to="/login" className="text-brand-600 dark:text-brand-400 font-semibold hover:underline">
             Log in
           </Link>
         </p>

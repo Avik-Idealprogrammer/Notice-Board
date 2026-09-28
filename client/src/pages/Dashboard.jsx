@@ -69,24 +69,26 @@ export default function Dashboard() {
       {/* Filter bar */}
       <div className="flex flex-wrap items-center gap-2 mb-6">
         <div className="relative flex-1 min-w-[180px]">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500" />
           <input
             placeholder="Search posts..."
-            className="w-full border border-slate-200 rounded-lg pl-9 pr-3 py-2 text-sm outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
+            className="w-full border border-slate-200 dark:border-white/10 rounded-lg pl-9 pr-3 py-2 text-sm bg-white dark:bg-[#18110c] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
             value={filters.q}
             onChange={(e) => updateFilter('q', e.target.value)}
           />
         </div>
         <input
           placeholder="City"
-          className="border border-slate-200 rounded-lg px-3 py-2 text-sm w-28 outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
+          className="border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm w-28 bg-white dark:bg-[#18110c] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 transition"
           value={filters.city}
           onChange={(e) => updateFilter('city', e.target.value)}
         />
         <button
           onClick={() => setShowFilters(!showFilters)}
           className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm border transition ${
-            showFilters ? 'bg-brand-50 border-brand-300 text-brand-700' : 'border-slate-200 text-slate-600'
+            showFilters
+              ? 'bg-brand-50 dark:bg-brand-950/60 border-brand-300 dark:border-brand-500/30 text-brand-700 dark:text-brand-300'
+              : 'border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 bg-white dark:bg-[#18110c] hover:bg-slate-50 dark:hover:bg-white/5'
           }`}
         >
           <SlidersHorizontal size={14} /> Filters
@@ -100,7 +102,7 @@ export default function Dashboard() {
       >
         <div className="flex flex-wrap gap-2 pb-2">
           <select
-            className="border border-slate-200 rounded-lg px-3 py-2 text-sm"
+            className="border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm bg-white dark:bg-[#18110c] text-slate-800 dark:text-slate-200 outline-none focus:ring-2 focus:ring-brand-500/30"
             value={filters.type}
             onChange={(e) => updateFilter('type', e.target.value)}
           >
@@ -109,7 +111,7 @@ export default function Dashboard() {
             <option value="notice">Notices</option>
           </select>
           <select
-            className="border border-slate-200 rounded-lg px-3 py-2 text-sm"
+            className="border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm bg-white dark:bg-[#18110c] text-slate-800 dark:text-slate-200 outline-none focus:ring-2 focus:ring-brand-500/30"
             value={filters.category}
             onChange={(e) => updateFilter('category', e.target.value)}
           >
@@ -119,7 +121,7 @@ export default function Dashboard() {
             ))}
           </select>
           <select
-            className="border border-slate-200 rounded-lg px-3 py-2 text-sm"
+            className="border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm bg-white dark:bg-[#18110c] text-slate-800 dark:text-slate-200 outline-none focus:ring-2 focus:ring-brand-500/30"
             value={filters.sort}
             onChange={(e) => updateFilter('sort', e.target.value)}
           >
@@ -149,7 +151,9 @@ export default function Dashboard() {
               key={p}
               onClick={() => setPage(p)}
               className={`w-9 h-9 rounded-lg text-sm font-medium transition ${
-                p === page ? 'bg-brand-600 text-white' : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                p === page
+                  ? 'bg-brand-600 text-white'
+                  : 'bg-white dark:bg-[#18110c] border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5'
               }`}
             >
               {p}
